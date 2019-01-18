@@ -10,10 +10,12 @@ import UIKit
 
 class ViewController: UIViewController {
     
+    var diccReference : [String : String] = [String : String]()
+    
     // MARK: Properties
     @IBOutlet weak var actView: UIActivityIndicatorView!
     @IBOutlet weak var tblBook: UITableView!
-    var arrPlanets = ["9789000035526","9789000036851","9789025750022","9789045116136"] // Holds the BookSwagger ISBN numbers
+    var arrPlanets = ["9789025750022","9789045116136","9789000035526","9789000036851"] // Holds the BookSwagger ISBN numbers
     
     
     // MARK: View lifecycle Methods
@@ -44,7 +46,15 @@ extension ViewController : UITableViewDelegate,UITableViewDataSource
         let cell:BookTableViewCell = tableView.dequeueReusableCell(withIdentifier: "bookInfoCell") as! BookTableViewCell
         
         cell.strBookISBN = strBookSwaggerISBN
-        cell.fetchBookDataOfCell()
+        if self.diccReference["index"] == "\(indexPath.row)" {
+            
+        }
+        else
+        {
+            cell.fetchBookDataOfCell()
+            self.diccReference["index"] = "\(indexPath.row)"
+        }
+        
         return cell;
     }
     
