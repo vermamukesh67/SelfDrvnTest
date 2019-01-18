@@ -1,6 +1,6 @@
 //
 //  HTError.swift
-//  Harris Teeter
+
 //
 //  Created by Verma Mukesh on 28/07/17.
 //  Copyright © 2017 Verma Mukesh All rights reserved.
