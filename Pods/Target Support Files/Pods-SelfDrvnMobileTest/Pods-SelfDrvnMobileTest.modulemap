@@ -1,0 +1,6 @@
+framework module Pods_SelfDrvnMobileTest {
+  umbrella header "Pods-SelfDrvnMobileTest-umbrella.h"
+
+  export *
+  module * { export * }
+}

@@ -45,5 +45,33 @@ struct BookSwagger : Codable {
         coverThumb = try values.decodeIfPresent(String.self, forKey: .coverThumb)
         subjects = try values.decodeIfPresent([String].self, forKey: .subjects)
 	}
+    
+    //MARK:- Init
+    init(fromDictionary dictionary: [String:Any]) {
+        let jsonData = try! JSONSerialization.data(withJSONObject: dictionary, options: .prettyPrinted)
+        self = try! JSONDecoder().decode(BookSwagger.self, from: jsonData)
+    }
 
+}
+
+//MARK:- API Calls -
+extension BookSwagger {
+    
+    static func search(isbn:String, completion: @escaping (BookSwagger?, APIError?) -> Void) {
+        let client = HTTPClient()
+        let router = BookRouter(endpoint: .Search(_isbn: isbn))
+        
+        client.response(router: router) { (response) in
+            if let success = response?.result.isSuccess, success {
+                if let body = response?.value as? JSONDictionary {
+                    let book = BookSwagger.init(fromDictionary: body)
+                    completion(book, nil)
+                }
+            } else if let error = response?.result.error as? APIError {
+                completion(nil, error)
+            } else {
+                completion(nil, nil)
+            }
+        }
+    }
 }
