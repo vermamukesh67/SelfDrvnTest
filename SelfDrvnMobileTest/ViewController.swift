@@ -15,7 +15,7 @@ class ViewController: UIViewController {
     // MARK: Properties
     @IBOutlet weak var actView: UIActivityIndicatorView!
     @IBOutlet weak var tblBook: UITableView!
-    var arrPlanets = ["9789025750022","9789045116136","9789000035526","9789000036851","9789025750022","9789045116136","9789000035526","9789000036851"] // Holds the BookSwagger ISBN numbers
+    var arrPlanets = ["9789025750022","9789045116136","9789000035526","9789000036851"] // Holds the BookSwagger ISBN numbers
     
     
     // MARK: View lifecycle Methods

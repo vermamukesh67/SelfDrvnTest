@@ -11,7 +11,7 @@ import UIKit
 class BookTableViewCell: UITableViewCell {
     @IBOutlet weak var imgBookCover: UIImageView!
     var strBookISBN : String = ""
-    var cellBookModel : BookSwagger? = nil
+    var cellBookModel : BookItem? = nil
     @IBOutlet weak var actBookLoader: UIActivityIndicatorView!
     @IBOutlet weak var lblBookAuthorName: UILabel!
     @IBOutlet weak var lblBookCoverName: UILabel!
@@ -23,10 +23,8 @@ class BookTableViewCell: UITableViewCell {
     
     func fetchBookDataOfCell() {
                 // first check for internet connection
-        if Reachability.isConnectedToNetwork(){
             self.actBookLoader.startAnimating()
             searchBook(isbn: strBookISBN)
-        }
 }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -39,7 +37,8 @@ class BookTableViewCell: UITableViewCell {
 //MARK:- APIs
 extension BookTableViewCell {
     func searchBook(isbn: String) {
-        BookSwagger.search(isbn: isbn) { (value, error) in
+        
+        BookISBNAPI.isbnISBNGet(ISBN: isbn) { (value, error) in
             
             self.actBookLoader.stopAnimating()
             
@@ -49,7 +48,7 @@ extension BookTableViewCell {
                 self.cellBookModel = bookModel
                 
                 self.lblBookCoverName.text = bookModel.title
-                self.lblBookName.text = bookModel.iSBN
+                self.lblBookName.text = bookModel.ISBN
                 
                 guard let strHasData = bookModel.coverThumb else
                 {
@@ -83,11 +82,13 @@ extension BookTableViewCell {
                 
             } else {
                 if let err = error {
-                    print(err.errorMessage ?? "")
+                    print(err.localizedDescription ?? "")
                 } else {
                     print("Unknown error occured")
                 }
             }
+            
+            
         }
     }
 }

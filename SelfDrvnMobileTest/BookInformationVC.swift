@@ -13,7 +13,7 @@ class BookInformationVC: UITableViewController {
     
     @IBOutlet weak var lblSubjects: UILabel!
     @IBOutlet weak var imgBookCover: UIImageView!
-    var bookModel : BookSwagger? = nil
+    var bookModel : BookItem? = nil
     @IBOutlet weak var actBookLoader: UIActivityIndicatorView!
     @IBOutlet weak var lblBookAuthorName: UILabel!
     @IBOutlet weak var lblBookCoverName: UILabel!
@@ -24,7 +24,7 @@ class BookInformationVC: UITableViewController {
         
         self.tableView.tableHeaderView = UIView.init()
         
-        if let bookisbn = bookModel?.iSBN
+        if let bookisbn = bookModel?.ISBN
         {
             self.lblBookName.text = bookisbn
         }
@@ -64,7 +64,7 @@ class BookInformationVC: UITableViewController {
             self.lblBookAuthorName.text  =  arrStrAuthors.joined(separator:", ")
         }
         
-        if let des = bookModel?.description {
+        if let des = bookModel?._description {
             
             self.lblBookDesc.text = "Description : \n\n" + des
         }
